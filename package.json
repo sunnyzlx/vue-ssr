@@ -6,17 +6,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:client": "cross-env NODE_ENV=production webpack --config build/webpack.config.client.js",
-    "build": "npm run clean && npm run build:client",
-    "clean": "rimraf dist",
+    "build:server": "cross-env NODE_ENV=production webpack --config build/webpack.config.server.js",
+    "build": "npm run clean && npm run build:client && npm run build:server",
+    "clean": "rimraf dist && rimraf server-build",
     "lint": "eslint --ext .js --ext .jsx --ext .vue client/",
     "lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue client/",
-    "precommit": "npm run lint",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js"
+    "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js",
+    "dev:server": "cross-env NODE_ENV=development node server/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vue": "2.5.13",
+    "axios": "^0.18.0",
+    "ejs": "^2.6.1",
+    "koa": "^2.6.2",
+    "koa-router": "^7.4.0",
+    "vue": "^2.5.21",
     "vue-router": "^3.0.2",
     "vue-server-renderer": "^2.5.21",
     "vuex": "^3.0.1"
@@ -44,6 +49,7 @@
     "file-loader": "1.1.6",
     "html-webpack-plugin": "2.30.1",
     "husky": "^1.3.1",
+    "memory-fs": "^0.4.1",
     "postcss-loader": "2.0.9",
     "rimraf": "^2.6.2",
     "style-loader": "0.19.1",
@@ -52,7 +58,7 @@
     "url-loader": "0.6.2",
     "vue-loader": "13.6.0",
     "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "2.5.13",
+    "vue-template-compiler": "^2.5.21",
     "webpack": "3.10.0",
     "webpack-dev-server": "2.9.7",
     "webpack-merge": "^4.1.5"
